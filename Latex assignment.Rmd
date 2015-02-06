@@ -4,9 +4,14 @@ author: "Chaman Preet Kaur"
 date: "February 04, 2015"
 output: pdf_document
 ---
-Introduction
+The Scenario
 ====================================================================
-This calculation is done in order to compare the volumes of cake baked in a square pan compared to the one baked in a circular pan when they have nearly similar dimensions. The heights of both the pans are same while the diameter of the cicular pan is same as the side of the circular pan
+You are craving for chocolate cake and want to bake it at home. You drive to safeway to find a pan and there are two of them available. A square cake pan and a circular cake pan both with the same height. The side of the square pan is same as the diameter of the circular pan. How do you decide which pan should you buy in case you want to have more cake. 
+
+The Solution
+====================================================================
+In order to decide on the pan, we compare the volumes of cake baked in a square pan and the circular pan. 
+
 
 Calculations
 ====================================================================
@@ -42,7 +47,8 @@ plot (vol, heights , main="Scatterplot",
 
 ```
 
+
 Conclusion
 ====================================================================
-From the plots and calculation it is evident that volume of a square pan is higher than a circular pan. Hence, in case you want to have a bigger cake, do not hesitate to choose the square cake pan.
+From the plots and calculation it is evident that volume of a square pan (`r volume_of_square_pan` cubic inches) is more than a circular pan (`r round(volume_of_circular_pan,1)` cubic inches). Hence, in case you want to have a bigger cake, do not hesitate to choose the square cake pan.
 
