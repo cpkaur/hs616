@@ -1,0 +1,48 @@
+---
+title: "Latex assignment"
+author: "Chaman Preet Kaur"
+date: "February 04, 2015"
+output: pdf_document
+---
+Introduction
+====================================================================
+This calculation is done in order to compare the volumes of cake baked in a square pan compared to the one baked in a circular pan when they have nearly similar dimensions. The heights of both the pans are same while the diameter of the cicular pan is same as the side of the circular pan
+
+Calculations
+====================================================================
+Volume of square pan is calculated as follows:
+$$ a^2 h\ $$ 
+
+In this case
+
+''a'' = 9 inches (length of side)
+
+''h'' = 2 inches (depth)
+
+Volume of circular cake pan is calculated as follows:
+$$ \pi r^2 h\ $$
+
+In this case
+
+''r'' = 4.5 inches radius of circular face
+
+''h'' = 2 inches height
+
+
+```{r, echo=FALSE}
+a <- 9
+h <- 2
+r <- 4.5
+volume_of_square_pan <- a^2* h
+volume_of_circular_pan <- pi* r^2*h
+vol <- c(volume_of_square_pan, volume_of_circular_pan)
+heights <- c(2,2)
+plot (vol, heights , main="Scatterplot", 
+      xlab="volume ", ylab=" height ")
+
+```
+
+Conclusion
+====================================================================
+From the plots and calculation it is evident that volume of a square pan is higher than a circular pan. Hence, in case you want to have a bigger cake, do not hesitate to choose the square cake pan.
+
