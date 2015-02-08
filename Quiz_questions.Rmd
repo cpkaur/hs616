@@ -1,0 +1,79 @@
+---
+title: "Quiz_questions"
+output: html_document
+---
+Lecture 1a
+
+Q1. A vector components can have what kind of data type?
+
+Answer:
+
+a. Same data type of all component
+
+b. Only integer
+
+c. Mix data type
+
+d. Only character type
+
+Q2. u <- c(2,3,4)
+
+v <- c(3,4,5,6,7,8)
+
+what is u +v?
+
+Answer:
+
+a. (5  7  9  6  7  8)
+
+b. NaN
+
+c. (5  7  9  8 10 12)
+
+d. (3  4  5  8 10  12)
+
+Lecture 1b
+
+Q1. What does apply function return?
+
+Answer:
+
+a. Both 2 and 3
+
+b. List
+
+c. Vector
+
+d. matrix
+
+Lecture 2a
+
+Q1. cbind() function combines _______ by columns?
+
+Answer:
+
+a. All of these
+
+b. None of these
+
+c. Vectors and matrices
+
+d. Data frame
+
+Lecture 2b
+
+Q2 what kind of distribution is this:
+
+x <- seq(0, 4, 0.1)
+
+plot(x, dnorm(x, 2, 0.5), type = "l”)
+
+Answer:
+
+a. Normal
+
+b. Poisson
+
+c. Unified constant 
+
+d. Binomial
