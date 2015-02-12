@@ -77,3 +77,19 @@ b. Poisson
 c. Unified constant 
 
 d. Binomial
+
+Week3
+Lecture 3a
+
+Q1 m <- matrix(1:20, nrow=5,ncol=4)
+How can the values be arranged in ascending order row wise?
+
+Answer:
+
+1 byrow = TRUE
+
+2 bycol = TRUE
+
+3 default value
+
+4 byrow = FALSE
