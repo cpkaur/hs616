@@ -1,95 +1,73 @@
 ---
 title: "Quiz_questions"
+author: Chaman Preet Kaur
 output: html_document
 ---
-Lecture 1a
+## Lecture 1a
 
-Q1. A vector components can have what kind of data type?
+A vector components can have what kind of data type?
 
-Answer:
+* Same data type of all component
+* Only integer
+* Mix data type
+* Only character type
 
-a. Same data type of all component
+## Lecture 1a again
 
-b. Only integer
-
-c. Mix data type
-
-d. Only character type
-
-Q2. u <- c(2,3,4)
-
+In the following code what is u +v?
+```
+u <- c(2,3,4)
 v <- c(3,4,5,6,7,8)
+```
 
-what is u +v?
+* (5  7  9  6  7  8)
+* NaN
+* (5  7  9  8 10 12)
+* (3  4  5  8 10  12)
 
-Answer:
+##  Lecture 1b
 
-a. (5  7  9  6  7  8)
+What does apply function return?
 
-b. NaN
+* Both list and vector
+* List only
+* Vector only
+* Matrix
 
-c. (5  7  9  8 10 12)
+## Lecture 2a
 
-d. (3  4  5  8 10  12)
+cbind() function is used for what type of data?
 
-Lecture 1b
+* All of these
+* None of these
+* Vectors and matrices
+* Data frames
 
-Q1. What does apply function return?
+## Lecture 2b
 
-Answer:
-
-a. Both 2 and 3
-
-b. List
-
-c. Vector
-
-d. matrix
-
-Lecture 2a
-
-Q1. cbind() function combines _______ by columns?
-
-Answer:
-
-a. All of these
-
-b. None of these
-
-c. Vectors and matrices
-
-d. Data frame
-
-Lecture 2b
-
-Q2 what kind of distribution is this:
-
+Indentify the distribution type in the following code:
+```
 x <- seq(0, 4, 0.1)
-
 plot(x, dnorm(x, 2, 0.5), type = "l”)
+```
 
-Answer:
+* Normal
+* Poisson
+* Unified constant 
+* Binomial
 
-a. Normal
+## Lecture 3a
 
-b. Poisson
+What needs to be changed in the following code for values to be arranged row wise in ascending order?
+```
+m <- matrix(1:20, nrow=5,ncol=4)
+```
 
-c. Unified constant 
+* byrow = TRUE
+* bycol = TRUE
+* It is already arranged as desired 
+* byrow = FALSE
 
-d. Binomial
+## Lecture 3b 
 
-Week3
-Lecture 3a
 
-Q1 m <- matrix(1:20, nrow=5,ncol=4)
-How can the values be arranged in ascending order row wise?
-
-Answer:
-
-1 byrow = TRUE
-
-2 bycol = TRUE
-
-3 default value
-
-4 byrow = FALSE
