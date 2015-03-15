@@ -76,10 +76,8 @@ for(i in 1:3) x[i] <- i+i
 ```
 
 * `x <- c(1,2,3) + c(1, 2, 3)`
-* `for i in range(1,4):
-    x+= [i+i]`
-* `while i<4:
-    x+= [2i]`
+* `for(i in range(1,4)) x+= [i+i]`
+* `while(i<4) x+= [2i]`
 * `for(i<4) x[i] <- 2i`
 
 
@@ -115,7 +113,43 @@ What is the correct code for subtracting two dates from one another and then cas
 
 ## Lecture 6a
 
+Does case sensitivity matter while using SQL in R?
 
+* Yes
+* No
+
+## Lecture 6b 
+
+What is the output of the following code?
+```
+x <- function(numRows=5, numCols=5, probZero=0.7, seed=NULL){
+  if(!is.null(seed)) set.seed(seed)
+	matrix( rnbinom(numRows * numCols, prob=probZero, size=1), nrow=numRows )
+}
+```
+
+* Generates a random sparse matrix
+* Generates a random vector 
+* Generates bionomial distribution values and stores them in x
+* The code does not work
+
+## Lecture 7a
+
+Which of these is not a problem with messy data
+
+* Values stored in table format
+* Multiple variables stored in a single column
+* Variables stored in both rows and columns
+* Multiple types of entities in the same table
+
+## Lecture 7b
+
+Which of these lines of code cannot be used to generate a random data set?
+
+* `qnorm(c(.05,.95))`
+* `replicate( 100, runif(n=20))`
+* `n <- rnorm(2500, mean=65, sd=4.58)`
+* `z=rnorm(20, mean=10, sd=3)`
 
 
 

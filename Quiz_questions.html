@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
+<meta name="author" content="Chaman Preet Kaur" />
 
 
 <title>Quiz_questions</title>
@@ -61,56 +62,96 @@ img {
 
 <div id="header">
 <h1 class="title">Quiz_questions</h1>
+<h4 class="author"><em>Chaman Preet Kaur</em></h4>
 </div>
 
 
-<p>Lecture 1a Q1. A vector components can have what kind of data type?</p>
-<p>Answer:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Same data type of all component</p></li>
-<li><p>Only integer</p></li>
-<li><p>Mix data type</p></li>
-<li><p>Only character type</p></li>
-</ol>
-<p>Q2. u &lt;- c(2,3,4)</p>
-<p>v &lt;- c(3,4,5,6,7,8)</p>
-<p>what is u +v?</p>
-<p>Answer:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>(5 7 9 6 7 8)</p></li>
-<li><p>NaN</p></li>
-<li><p>(5 7 9 8 10 12)</p></li>
-<li><p>(3 4 5 8 10 12)</p></li>
-</ol>
-<p>Lecture 1b</p>
-<p>Q1. What does apply function return?</p>
-<p>Answer:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Both 2 and 3</p></li>
-<li><p>List</p></li>
-<li><p>Vector</p></li>
-<li><p>matrix</p></li>
-</ol>
-<p>Lecture 2a</p>
-<p>Q1. cbind() function combines _______ by columns?</p>
-<p>Answer:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>All of these</p></li>
-<li><p>None of these</p></li>
-<li><p>Vectors and matrices</p></li>
-<li><p>Data frame</p></li>
-</ol>
-<p>Lecture 2b</p>
-<p>Q2 what kind of distribution is this:</p>
-<p>x &lt;- seq(0, 4, 0.1)</p>
-<p>plot(x, dnorm(x, 2, 0.5), type = “l”)</p>
-<p>Answer:</p>
-<ol style="list-style-type: lower-alpha">
-<li><p>Normal</p></li>
-<li><p>Poisson</p></li>
-<li><p>Unified constant</p></li>
-<li><p>Binomial</p></li>
-</ol>
+<div id="lecture-1a" class="section level2">
+<h2>Lecture 1a</h2>
+<p>In the following code what is u +v?</p>
+<pre><code>u &lt;- c(2,3,4)
+v &lt;- c(3,4,5,6,7,8)</code></pre>
+<ul>
+<li><code>(5 7 9 6 7 8)</code></li>
+<li><code>NaN</code></li>
+<li><code>(5 7 9 8 10 12)</code></li>
+<li><code>(3 4 5 8 10 12)</code></li>
+</ul>
+</div>
+<div id="lecture-1b" class="section level2">
+<h2>Lecture 1b</h2>
+<p>What data type does apply function return?</p>
+<ul>
+<li>Both lists and vectors</li>
+<li>Lists</li>
+<li>Vectors</li>
+<li>Matrices</li>
+</ul>
+</div>
+<div id="lecture-2a" class="section level2">
+<h2>Lecture 2a</h2>
+<p>cbind() function is used for what type of data?</p>
+<ul>
+<li>Vectors, matrices and data frames</li>
+<li>Vectors and matrices</li>
+<li>Data frames only</li>
+<li>Vectors only</li>
+</ul>
+</div>
+<div id="lecture-2b" class="section level2">
+<h2>Lecture 2b</h2>
+<p>Indentify the distribution type in the following code:</p>
+<pre><code>x &lt;- seq(0, 4, 0.1)
+plot(x, dnorm(x, 2, 0.5), type = &quot;l”)</code></pre>
+<ul>
+<li>Normal</li>
+<li>Poisson</li>
+<li>Unified constant</li>
+<li>Binomial</li>
+</ul>
+</div>
+<div id="lecture-3a" class="section level2">
+<h2>Lecture 3a</h2>
+<p>What needs to be changed in the following code for values to be arranged row wise in ascending order?</p>
+<pre><code>m &lt;- matrix(1:20, nrow=5,ncol=4)</code></pre>
+<ul>
+<li><code>byrow = TRUE</code></li>
+<li><code>bycol = TRUE</code></li>
+<li><code>byrow = FALSE</code></li>
+<li>No change required in the code</li>
+</ul>
+</div>
+<div id="lecture-3b" class="section level2">
+<h2>Lecture 3b</h2>
+<p>Indentify the correct code used for augumenting the square matrix (S_quare (nxn)) by binding an identity matrix on the right?</p>
+<ul>
+<li><code>cbind(S_quare, diag(n))</code></li>
+<li><code>rbind(S_quare, diag(n))</code></li>
+<li><code>outer(S_quare, diag(n),&quot;+&quot;)</code></li>
+<li><code>cbind(S_quare, diag(0))</code></li>
+</ul>
+</div>
+<div id="lecture-4a" class="section level2">
+<h2>Lecture 4a</h2>
+<p>What is the correct way to vectorize the following code:</p>
+<pre><code>for(i in 1:3) x[i] &lt;- i+i</code></pre>
+<ul>
+<li><code>x &lt;- c(1,2,3) + c(1, 2, 3)</code></li>
+<li><code>for i in range(1,4): x+= [i+i]</code></li>
+<li><code>while i&lt;4: x+= [2i]</code></li>
+<li><code>for(i&lt;4) x[i] &lt;- 2i</code></li>
+</ul>
+</div>
+<div id="lecture-4b" class="section level2">
+<h2>Lecture 4b:</h2>
+<p>Which equation best describes an orthogonal matrix? (Q* = Q transpose)</p>
+<ul>
+<li>Q^−1 = Q*</li>
+<li>QI = IQ*</li>
+<li>Q^-1*Q = I</li>
+<li>Q*I = I</li>
+</ul>
+</div>
 
 
 </div>
