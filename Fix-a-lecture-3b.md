@@ -3,6 +3,16 @@ Fix-a-lecture-3b
 author: Chaman Preet Kaur
 date: 4/2/2015
 
+Objectives
+========================================================
+To understand vectors and matrices further. Topics to be covered:
+* Eigenvalues and Eigenvectors
+* Markov Matrices
+* Steady state diagram
+* How to derieve transition state matrix from a state diagram
+* What is transpose of matrix
+* What is an orthogonal Matrix
+
 Eigenvalues and Eigenvectors 
 ========================================================
 
@@ -101,4 +111,5 @@ where I is the identity matrix
 Also, a matrix Q is orthogonal if its transpose is equal to its inverse:
 
 Q^(T)=Q^-1
+
 
