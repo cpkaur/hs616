@@ -1,0 +1,139 @@
+Fix-a-lecture-3b
+========================================================
+author: Chaman Preet Kaur
+date: 4/2/2015
+
+Eigenvalues and Eigenvectors 
+========================================================
+
+Defination:
+
+We say that a number is the eigenvalue for this square matrix if and only if there exists a nonzero vector x such that 
+
+Ax = λx
+
+where:
+A is the square matrix
+
+x is the nonzero vector
+
+λ is a nonzero value
+
+In this circumstance, λ is the eigenvalue and x is the eigenvector.
+
+(source ~ http://anothermathgeek.hubpages.com/hub/What-the-Heck-are-Eigenvalues-and-Eigenvectors)
+
+Markov Matrices
+========================================================
+
+A Markov matrix is a square matrix with all nonnegative entries, and where the sum of the en- tries down any column is 1. If the entries are all positive, it’s a positive Markov matrix.
+
+The most important facts about a positive Markov matrix are: 
+* λ = 1 is an eigenvalue.
+* The eigenvector associated with λ = 1 can be chosen to be strictly positive.
+* All other eigenvalues have magnitude less than 1.
+
+(source - http://www.math.utah.edu/~zwick/Classes/Fall2012_2270/Lectures/Lecture40_with_Examples.pdf)
+
+Markov Matrix example
+========================================================
+
+```{r, echo=FALSE}
+MM <- matrix(c(0.3, 0.3, 0.4, 0.0, 0.1, 0.5, 0.1, 0.3, 0.0, 0.4, 0.2, 0.4, 0.9, 0.0, 0.0, 0.1),nrow=4, byrow=T)
+MM
+```
+
+
+Markov Matrix Grapher/ State diagram
+========================================================
+
+```{r, echo=FALSE}
+# source("http://bioconductor.org/biocLite.R")
+# biocLite("Rgraphviz")
+
+library("Rgraphviz")
+n <- 4
+nodeNames <- letters[1:n]
+
+MM <- matrix(c(
+  0.3, 0.3, 0.4, 0.0,
+	0.1, 0.5, 0.1, 0.3,
+	0.0, 0.4, 0.2, 0.4,
+	0.9, 0.0, 0.0, 0.1),
+	nrow=n, byrow=T)
+dimnames(MM) <- list( nodeNames, nodeNames )
+
+r <- c(1,0,0,0)
+for (i in 1:100) r <- r %*% MM
+
+gray256 <- gray(0:255/255)
+
+g <- new("graphNEL", nodes=nodeNames, edgemode="directed")
+
+attrs <- list(
+	node=list(fillcolor="lightgreen"),
+	edge=list(labelfontsize=3)
+)
+eAttrs <- list()	# 
+nAttrs <- list()
+
+for (i in nodeNames){
+	nAttrs$fillcolor[i] <- gray256[256 * r[i]]
+	for (j in nodeNames)
+		if (MM[i,j] > 0) {
+			g <- addEdge(i, j, g, MM[i,j])
+			edgeName <- paste(i, j, sep="~")
+			eAttrs$label[edgeName] <- MM[i,j]
+		}
+}
+
+# layout twopi, neato, dot; dot handles directional edges the best.
+plot(g, "dot", nodeAttrs=nAttrs, edgeAttrs=eAttrs, attrs=attrs, recipEdges="distinct")
+
+```
+
+Transition Matrix
+========================================================
+ 
+The transition matrix for the previous steady state diagram would be:
+ 
+```{r,echo=FALSE}
+n <- 4
+nodeNames <- letters[1:n]
+MM <- matrix(c( 0.3, 0.3, 0.4, 0.0, 0.1, 0.5, 0.1, 0.3, 0.0, 0.4, 0.2, 0.4, 0.9, 0.0, 0.0, 0.1),
+	nrow=4, byrow=T)
+dimnames(MM) <- list( nodeNames, nodeNames )
+MM
+```
+
+A few other properties of matrices 
+========================================================
+Transpose of a Matrix:
+For a matrix A. Transpose(A) also written A′, Atr, tA or At
+Example:
+
+A =
+```{r, echo =FALSE}
+A <- matrix(c(1,2,3,4),nrow=2)
+A
+```
+Transpose(A) =
+```{r,echo=FALSE}
+At <- matrix(c(1,2,3,4),nrow=2,byrow=T)
+At
+```
+
+A few other properties of matrices (contd.)
+========================================================
+
+Orthogonal Matrices:
+
+In linear algebra, an orthogonal matrix is a square matrix with real entries whose columns and rows are orthogonal unit vectors (i.e., orthonormal vectors), i.e.
+
+Q^T Q = Q Q^T = I,
+where I is the identity matrix
+
+Also, a matrix Q is orthogonal if its transpose is equal to its inverse:
+
+Q^(T)=Q^-1
+
