@@ -92,7 +92,7 @@ plot(g)
 
 ## Lecture 12a
 
-Which function is used to fit linear models?
+Which function(s) is/are used to fit linear models?
 
 * lm, glm, aov
 * lm, glm, aov, ppr 
@@ -101,7 +101,7 @@ Which function is used to fit linear models?
 
 ## Lecture 12b
 
-Which function is used to embed a Shiny application within an R Markdown?
+Which function(s) is/are used to embed a shiny application within an R Markdown?
 
 * shinyAppDir, shinyApp
 * shinyAppDir
