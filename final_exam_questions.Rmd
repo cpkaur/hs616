@@ -1,7 +1,7 @@
 ---
 title: "Final_exam_questions"
 author: Chaman Preet Kaur
-output: html_document
+output: pdf_document
 ---
 
 ## Lecture 8a 
