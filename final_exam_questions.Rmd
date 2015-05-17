@@ -27,10 +27,10 @@ What functions can you use to do Principal Component Analysis in R?
 
 What is the cut function used for?
 
-* To convert numeric to factor
-* To cut of the trailing floating point numbers
-* To only consider specific number of values from a list
-* To round of numbers
+* Convert numeric to factor
+* Cut of the trailing floating point numbers
+* Consider specific number of values from a list
+* Round off numbers
 
 ## Lecture 9b
 
