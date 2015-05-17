@@ -1,5 +1,155 @@
 ---
-title: "final_questions.Rmd"
+title: "Final_exam_questions"
+author: Chaman Preet Kaur
 output: html_document
 ---
+
+## Lecture 8a 
+
+What functions can you use to create a sequence over colors in R??
+
+* All of these
+* colorRampPalette
+* colorRamp
+* rainbow_hcl
+
+
+##  Lecture 8b
+
+What functions can you use to do Principal Component Analysis in R?
+
+* prcomp(), princomp(), PCA(), dudi.pca() and acp()
+* Only prcomp(), princomp() and PCA()
+* prcomp() can be used but gives inaccurate results. PCA() is the only option
+* Only PCA()
+
+## Lecture 9a
+
+What is the cut function used for?
+
+* To convert numeric to factor
+* To cut of the trailing floating point numbers
+* To only consider specific number of values from a list
+* To round of numbers
+
+## Lecture 9b
+
+Which library out of the following is useful for manipulating atasets in R, focussing only on dataframes?
+
+* dplyr
+* magrittr
+* tidyr
+* ggplot2
+
+## Lecture 10a
+
+What would be the outcome of the following code?
+```
+x <- runif(1000, min=-10, max=10)
+y <- x^2
+z <- 2*y + 5*x + 6
+plot(x,z)
+library(rgl)
+plot3d(x,y,z)
+```
+
+* An interactive 3d plot and a 2d plot 
+* A 2d plot
+* There is an error in the code
+* A 3d plot 
+
+
+## Lecture 10b
+
+How many basic files are required to build a shiny application?
+
+* 2
+* 1
+* 3 
+* 0
+
+## Lecture 11a
+
+Which algorithm is used for density based clustering?
+
+* DBSCAN
+* Hierarchical clustering
+* K-means algorithm
+* Expectation–maximization algorithm
+
+## Lecture 11b
+
+What is the outcome of the following code?
+```
+g <- graph.formula( Alice-Bob-Cecil-Alice,Daniel-Cecil-Eugene, Cecil-Gordon )
+plot(g)
+```
+
+* Undirected graph
+* Directed graph
+* Mixed graph
+* Weighted graph
+
+## Lecture 12a
+
+Which function is used to fit linear models?
+
+* lm, glm, aov
+* lm, glm, aov, ppr 
+* none of these
+* lm, glm, ppr
+
+## Lecture 12b
+
+Which function is used to embed a Shiny application within an R Markdown?
+
+* shinyAppDir, shinyApp
+* shinyAppDir
+* shinyApp
+* None of these 
+
+## Lecture 13a
+
+Which of the following statements is FALSE?
+
+* Linear regression attempts to model the relationship between independent variables. 
+* Logistic regression is useful when you are predicting a binary outcome from a set of continuous predictor variables.
+* Poisson regression is useful when predicting an outcome variable representing counts from a set of continuous predictor variables.
+* Survival analysis covers a set of techniques for modeling the time to an event. 
+
+## Lecture 13b 
+
+What is the use of dev.off() function?
+
+* Used to close open figure files and plotting windows
+* Used to break the code run
+* Used to assign value to dev attribute
+* None of these
+
+## Lecture 14a
+
+Which function out of the following can be used to calculate the False Positive Rate?
+
+* fall
+* miss
+* f
+* pcfall
+
+## Lecture 14b 
+
+Where is AIC (Akaike information criterion) used?
+
+* All of these 
+* In model selection
+* Counting parameters
+* Transforming data
+
+
+
+
+
+
+
+
+
 
