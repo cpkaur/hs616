@@ -33,12 +33,12 @@ What is the cut function used for?
 
 ## Lecture 9b
 
-Which library out of the following is useful for manipulating atasets in R, focussing only on dataframes?
+Which library out of the following is useful for manipulating datasets in R, focussing only on dataframes?
 
 * `dplyr`
-* `magrittr`
-* `tidyr`
-* `ggplot2`
+* `rgl`
+* `knitr`
+* `rvest`
 
 ## Lecture 10a
 
