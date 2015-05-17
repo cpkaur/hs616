@@ -79,6 +79,7 @@ Which algorithm is used for density based clustering?
 
 What is the outcome of the following code?
 ```
+library(igraph)
 g <- graph.formula( Alice-Bob-Cecil-Alice,Daniel-Cecil-Eugene, Cecil-Gordon )
 plot(g)
 ```
