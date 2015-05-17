@@ -1,0 +1,136 @@
+---
+title: "Data Simulation Project"
+output: pdf_document
+---
+### Headache in School Children: Prevalence and Risk Factors
+
+#### Background
+
+Recurrent headache is a common problem in school children. This data set is linked to the question whether number of headaches in school children is becoming more common and, if so, what risk factors are associated with the rise in the number of headaches. A survey of 300 children was done and the following factors were recorded: 
+
+* Age
+
+* Consumption of alcohol per week
+
+* Caffeine ingestion per day
+
+* Number of smokes per week
+
+* Number of video games owned
+
+* Number of television sets in their bedroom
+
+* Number of physical games played
+
+* Physical or emotional abuse
+
+* leisure time per week
+
+* Number of chocolates eaten per week (caf)
+
+* Divorced Parents or not 
+
+An analysis of the data needs to be made to determine the number of headaches and involved risk factors.
+
+#### Data set generation
+
+This is a function to generate a simulated data set.
+
+```{r}
+
+generate_dataset <- function(N=1000){
+  
+    age <- runif(N, min=10-3, max=10+6)
+    #sex <- sample(c("M", "F"), N, replace=TRUE)
+    alcohol <- rnorm(N, mean=20, sd=5)
+    caffeine <- rnorm(N, mean=200, sd=80)
+    smokes <-  rbinom(N, 2, .20)
+    chocolates <- rnorm(N, mean=2, sd=.5)
+
+    Caffeine_alcohol_index <- 2 + 0.1 * (alcohol) + .001 * (caffeine) + .03 * (smokes) + 0.02 * (chocolates) 
+
+    video_games <- rbinom(N, 4, .70)
+    television <- rbinom(N, 1, .40)
+    games_played <- rbinom(N, 2, .53)
+    leisure_time <- rnorm (N, mean = 7, sd = 2)
+    
+    Physical_activity_index <- 2 - .10 * video_games - .20 * television + .10 * games_played + .25* leisure_time
+    
+    Physical_abuse <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.34, .66))
+    Divorced_parents <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.45, .55))
+    
+    make <- c("Audi", "Camry", "Nissan", "Subaru", "Honda", "BMW", "Acura", "Infinity")
+    car <- sample(make, N, replace=TRUE)
+    
+    if(Physical_abuse == 'Y' && Divorced_parents == 'Y') {headaches = floor((0.5 * age + 1.14 * Caffeine_alcohol_index - 0.7 * Physical_activity_index + 2))}
+    else {headaches = floor((0.5 * age + 1.14 * Caffeine_alcohol_index - 0.7 * Physical_activity_index))}
+    
+    headaches[which(headaches <= 0)] = 0
+
+    data.frame(age, alcohol, caffeine, smokes, chocolates,video_games, television, games_played, leisure_time, Caffeine_alcohol_index, Physical_activity_index,Physical_abuse, Divorced_parents, car, headaches)
+
+    }
+df <- generate_dataset(100)
+
+plot(df$age, df$headaches)
+```
+
+The manipulate function is used to calculate appropriate intercepts for the number of headaches prediction equation
+
+```{r}
+
+library(manipulate)
+manipulate({ if(df$Physical_abuse == 'Y' && df$Divorced_parents == 'Y'){
+  df <- transform(df, headaches = floor(a * age + b* Caffeine_alcohol_index - c * Physical_activity_index + 2))} 
+  else {df <- transform(df, headaches = floor(a * age +b* Caffeine_alcohol_index - c * Physical_activity_index))}
+  
+  plot(df$age , df$headaches)
+}, a=slider(0, 10, step=0.1, initial = 0),b=slider(0, 10, step=0.01, initial = 0), c=slider(0, 10, step=0.1, initial = 0))
+
+```
+
+#### Analysis
+
+For the analysis part a data frame containing the following factors is provided:
+
+* Age : Recorded in number of years
+* Caffeine_alcohol_index : This is the amount of caffeine and alcohol ingested by the child in all forms per week. It is calculated on the basis of the alcohol ingested in all forms per week, amount of caffeine intake per day, number of smokes per week and number of chocolates per week
+* Physical_activity_index :  This is a factor that evaluates the amount of physical activity performed by the child based on number of video games owned, number of televicions present in the child's bedroom, number of games played and the amount of leisure time available per week. 
+* Physical_abuse: If the child has suffered from any sort of physical abuse
+* Divorced_parents : If the parents of the child are divorced
+* alcohol: Amount of alcohol ingested in any form per week
+* caffeine: Amount of caffeine intake per day
+* smokes: Number of cigarettes smoked in a week
+* chocolates: Number of chocolates consumed per week 
+* video_games: Number of video games owned
+* television: Number of televisions in the child's bedroom
+* games_played: Number of physical games played per week
+* leisure_time: Amount of free time per week 
+* car: The make of the car owned by the family
+
+We try to analyse the data by using the different variables provided in the data frame. 
+
+```{r}
+
+fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index + Physical_abuse + Divorced_parents, data=df, family = poisson)
+
+summary(fit)
+
+
+fit2 <- lm(headaches ~ age + Physical_abuse + Divorced_parents + alcohol+ caffeine + smokes + chocolates + video_games + television + games_played+ leisure_time + car, data=df, family = poisson)
+
+summary(fit2)
+```
+
+Saving data in a csv
+
+```{r}
+dfnew <- df
+
+colnames(dfnew) <- c("Age (in years)", "Alcohol intake per week (in mg)", "Caffeine intake per day (in mg)", "Smokes per week", "Chocolates per week","Video games owned", " No. tv sets in bedroom", " No. of physical games played", "Leisure time per week",  "Caffeine_alcohol_index", "Physical_activity_index", "Physical abuse", "Divorced parents", "Car make","No. of headaches per week")
+
+write.csv(dfnew,file="/Users/chamanpreetkaur/Desktop/data")
+```
+Source website:
+
+http://pediatrics.aappublications.org/content/133/3/386.full.pdf
