@@ -13,7 +13,6 @@ What functions can you use to create a sequence over colors in R??
 * `colorRamp`
 * `rainbow_hcl`
 
-
 ##  Lecture 8b
 
 What functions can you use to do Principal Component Analysis in R?
@@ -58,8 +57,6 @@ plot3d(x,y,z)
 * A 3D plot
 * There is an error in the code
  
-
-
 ## Lecture 10b
 
 How many basic files are required to build a shiny application?
@@ -144,9 +141,6 @@ Where is AIC (Akaike information criterion) used?
 * In model selection
 * Counting parameters
 * Transforming data
-
-
-
 
 
 
