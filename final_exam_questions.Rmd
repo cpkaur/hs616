@@ -9,19 +9,19 @@ output: pdf_document
 What functions can you use to create a sequence over colors in R??
 
 * All of these
-* colorRampPalette
-* colorRamp
-* rainbow_hcl
+* `colorRampPalette`
+* `colorRamp`
+* `rainbow_hcl`
 
 
 ##  Lecture 8b
 
 What functions can you use to do Principal Component Analysis in R?
 
-* prcomp(), princomp(), PCA(), dudi.pca() and acp()
-* Only prcomp(), princomp() and PCA()
-* prcomp() can be used but gives inaccurate results. PCA() is the only option
-* Only PCA()
+* `prcomp()`, `princomp()`, `PCA()`, `dudi.pca(`) and `acp()`
+* Only `prcomp()`, `princomp()` and `PCA()`
+* `prcomp()` can be used but gives inaccurate results. `PCA()` is the only option
+* Only `PCA()`
 
 ## Lecture 9a
 
@@ -36,10 +36,10 @@ What is the cut function used for?
 
 Which library out of the following is useful for manipulating atasets in R, focussing only on dataframes?
 
-* dplyr
-* magrittr
-* tidyr
-* ggplot2
+* `dplyr`
+* `magrittr`
+* `tidyr`
+* `ggplot2`
 
 ## Lecture 10a
 
@@ -53,10 +53,11 @@ library(rgl)
 plot3d(x,y,z)
 ```
 
-* An interactive 3d plot and a 2d plot 
-* A 2d plot
+* An interactive 3D plot and a 2D plot 
+* A 2D plot
+* A 3D plot
 * There is an error in the code
-* A 3d plot 
+ 
 
 
 ## Lecture 10b
@@ -94,18 +95,18 @@ plot(g)
 
 Which function(s) is/are used to fit linear models?
 
-* lm, glm, aov
-* lm, glm, aov, ppr 
-* none of these
-* lm, glm, ppr
+* `lm, glm, aov`
+* `lm, glm, aov, ppr` 
+* None of these
+* `lm, glm, ppr`
 
 ## Lecture 12b
 
 Which function(s) is/are used to embed a shiny application within an R Markdown?
 
-* shinyAppDir, shinyApp
-* shinyAppDir
-* shinyApp
+* `shinyAppDir, shinyApp`
+* `shinyAppDir`
+* `shinyApp`
 * None of these 
 
 ## Lecture 13a
@@ -119,7 +120,7 @@ Which of the following statements is FALSE?
 
 ## Lecture 13b 
 
-What is the use of dev.off() function?
+What is the use of `dev.off()` function?
 
 * Used to close open figure files and plotting windows
 * Used to break the code run
@@ -130,10 +131,10 @@ What is the use of dev.off() function?
 
 Which function out of the following can be used to calculate the False Positive Rate?
 
-* fall
-* miss
-* f
-* pcfall
+* `fall`
+* `miss`
+* `f`
+* `pcfall`
 
 ## Lecture 14b 
 
