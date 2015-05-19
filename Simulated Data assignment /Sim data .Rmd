@@ -47,32 +47,37 @@ generate_dataset <- function(N=1000){
     smokes <-  rbinom(N, 2, .20)
     chocolates <- rnorm(N, mean=2, sd=.5)
 
-    Caffeine_alcohol_index <- 2 + 0.1 * (alcohol) + .001 * (caffeine) + .03 * (smokes) + 0.02 * (chocolates) 
+    Caffeine_alcohol_index <-  0.1 * (alcohol) + .001 * (caffeine) + .03 * (smokes) + 0.02 * (chocolates) 
 
     video_games <- rbinom(N, 4, .70)
     television <- rbinom(N, 1, .40)
     games_played <- rbinom(N, 2, .53)
     leisure_time <- rnorm (N, mean = 7, sd = 2)
     
-    Physical_activity_index <- 2 - .10 * video_games - .20 * television + .10 * games_played + .25* leisure_time
+    Physical_activity_index <-  0.10 * games_played + 0.25* leisure_time - .10 * video_games - .20 * television 
     
     Physical_abuse <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.34, .66))
-    Divorced_parents <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.45, .55))
+    #Divorced_parents <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.45, .55))
     
     make <- c("Audi", "Camry", "Nissan", "Subaru", "Honda", "BMW", "Acura", "Infinity")
     car <- sample(make, N, replace=TRUE)
     
-    if(Physical_abuse == 'Y' && Divorced_parents == 'Y') {headaches = floor((0.5 * age + 1.14 * Caffeine_alcohol_index - 0.7 * Physical_activity_index + 2))}
-    else {headaches = floor((0.5 * age + 1.14 * Caffeine_alcohol_index - 0.7 * Physical_activity_index))}
+    
+    bad_family <- ifelse((Physical_abuse == 'Y'), 2,0) 
+    
+    headaches = floor(0.5 * age + 1.14 * Caffeine_alcohol_index - 0.7 * Physical_activity_index + bad_family)
+    
     
     headaches[which(headaches <= 0)] = 0
 
-    data.frame(age, alcohol, caffeine, smokes, chocolates,video_games, television, games_played, leisure_time, Caffeine_alcohol_index, Physical_activity_index,Physical_abuse, Divorced_parents, car, headaches)
+    data.frame(age, alcohol, caffeine, smokes, chocolates,video_games, television, games_played, leisure_time, Caffeine_alcohol_index, Physical_activity_index,Physical_abuse, car, headaches)
 
-    }
-df <- generate_dataset(100)
+}
 
-plot(df$age, df$headaches)
+df <- generate_dataset(1000)
+
+with(df, plot(age, headaches))
+plot(headaches ~ age, data = df)
 ```
 
 The manipulate function is used to calculate appropriate intercepts for the number of headaches prediction equation
@@ -112,14 +117,40 @@ We try to analyse the data by using the different variables provided in the data
 
 ```{r}
 
-fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index + Physical_abuse + Divorced_parents, data=df, family = poisson)
+fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index + Physical_abuse -1, data=df)
 
 summary(fit)
 
 
-fit2 <- lm(headaches ~ age + Physical_abuse + Divorced_parents + alcohol+ caffeine + smokes + chocolates + video_games + television + games_played+ leisure_time + car, data=df, family = poisson)
+fit2 <- lm(headaches ~ age + Physical_abuse + alcohol+ caffeine + smokes + chocolates + video_games + television + games_played+ leisure_time + car -1, data=df)
 
 summary(fit2)
+
+with(df, boxplot(headaches ~ Physical_abuse ))
+plot (age~headaches, border = Physical_abuse, data = df)
+library(ggplot2)
+ggplot(df, aes(x = Caffeine_alcohol_index, col = Physical_abuse )) + geom_density()
+ggplot(df, aes(x = Physical_activity_index, col = Physical_abuse )) + geom_density()
+ggplot(df, aes(x = age, col = Physical_abuse  )) + geom_density()
+ggplot(df, aes(x = alcohol, col = Physical_abuse  )) + geom_density()
+ggplot(df, aes(x = caffeine, col = Physical_abuse  )) + geom_density()
+ggplot(df, aes(x = video_games, col = Physical_abuse  )) + geom_density()
+ggplot(df, aes(x = television, col = Physical_abuse  )) + geom_density()
+ggplot(df, aes(x = games_played, col = Physical_abuse  )) + geom_density()
+ggplot(df, aes(x = leisure_time, col = Physical_abuse  )) + geom_density()
+plot(~ car, data = df)
+plot (~ Physical_abuse, data = df)
+ggplot(df, aes(x = headaches, col = Physical_abuse  )) + geom_density()
+plot(headaches ~ Physical_abuse, data =df)
+plot(headaches ~ car, data =df, las =2)
+plot (headaches ~ age , data =df)
+abline (lm(headaches ~ age , data =df), col ='red')
+plot (headaches ~ Physical_activity_index , data =df)
+abline (lm(headaches ~ Physical_activity_index , data =df), col ='red')
+plot (headaches ~ Caffeine_alcohol_index , data =df)
+abline (lm(headaches ~ Caffeine_alcohol_index , data =df), col ='red')
+library(lattice)
+scatter(~age+alcohol+ caffeine + smokes + chocolates + video_games + television + games_played+ leisure_time + Caffeine_alcohol_index + Physical_activity_index, data=df, main="Headaches")
 ```
 
 Saving data in a csv
