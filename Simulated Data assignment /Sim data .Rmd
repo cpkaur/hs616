@@ -120,7 +120,7 @@ For the analysis part a data frame containing the following factors is provided:
 10. Caffeine_alcohol_index : This is the amount of caffeine and alcohol ingested by the child in all forms per week. It is calculated on the basis of the alcohol ingested in all forms per week, amount of caffeine intake per day, number of smokes per week and number of chocolates per week
 11. Physical_activity_index :  This is a factor that evaluates the amount of physical activity performed by the child based on number of video games owned, number of televicions present in the child's bedroom, number of games played and the amount of leisure time available per week. 
 12. Physical_abuse: If the child has suffered from any sort of physical abuse ("Yes" or "No")
-13. bad_family : It is an intercept value determined by the the fact the family has divorced parents or not
+13. bad_family : It is an intercept value determined by the fact if the child has suffered physical abuse
 14. car: The make of the car owned by the family
 15. headaches: No. of headaches a child gets per week
 
