@@ -1,10 +1,14 @@
 ---
 title: "Data Simulation Project"
-output: pdf_document
+output:
+  pdf_document:
+    fig_height: 3
+    fig_width: 4
+    keep_tex: yes
 ---
-### Headache in School Children: Prevalence and Risk Factors
+# Headache in School Children: Prevalence and Risk Factors
 
-#### Background
+## The Story
 
 Recurrent headache is a common problem in school children. This data set is linked to the question whether number of headaches in school children is becoming more common and, if so, what risk factors are associated with the rise in the number of headaches. A survey of 300 children was done and the following factors were recorded: 
 
@@ -32,125 +36,170 @@ Recurrent headache is a common problem in school children. This data set is link
 
 An analysis of the data needs to be made to determine the number of headaches and involved risk factors.
 
-#### Data set generation
+## Data generation
 
 This is a function to generate a simulated data set.
+
+The `runif` function is used to get inputs for age as we need to have a mix of children from different ages.`rnorm` function is used to generate values where variables are continuous in nature for example alcohol intake can be floating point number. `rbinom` function is used to generate data for variables where a integer value is required and a definate probability for lamba value. The Caffeine_alcohol_index and Physical_abuse_index are calculated using various variables listed in the data frame. The car make is added as a distraction. Finally manupulate function is sued to determine coefficients for variables involved 
 
 ```{r}
 
 generate_dataset <- function(N=1000){
   
     age <- runif(N, min=10-3, max=10+6)
-    #sex <- sample(c("M", "F"), N, replace=TRUE)
     alcohol <- rnorm(N, mean=20, sd=5)
     caffeine <- rnorm(N, mean=200, sd=80)
     smokes <-  rbinom(N, 2, .20)
     chocolates <- rnorm(N, mean=2, sd=.5)
 
-    Caffeine_alcohol_index <-  0.1 * (alcohol) + .001 * (caffeine) + .03 * (smokes) + 0.02 * (chocolates) 
+    Caffeine_alcohol_index <- ( 0.1 * (alcohol) + .001 * (caffeine) + 
+                                  .03 * (smokes) + 0.02 * (chocolates) )
 
     video_games <- rbinom(N, 4, .70)
     television <- rbinom(N, 1, .40)
     games_played <- rbinom(N, 2, .53)
     leisure_time <- rnorm (N, mean = 7, sd = 2)
     
-    Physical_activity_index <-  0.10 * games_played + 0.25* leisure_time - .10 * video_games - .20 * television 
+    Physical_activity_index <-  (0.10 * games_played + 0.25* leisure_time 
+                                 - .10 * video_games - .20 * television) 
     
     Physical_abuse <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.34, .66))
-    #Divorced_parents <- sample(c("Y", "N"), N, replace=TRUE, prob=c(.45, .55))
     
-    make <- c("Audi", "Camry", "Nissan", "Subaru", "Honda", "BMW", "Acura", "Infinity")
+    make <- c("Audi", "Camry", "Nissan", "Subaru", 
+              "Honda", "BMW", "Acura", "Infinity")
     car <- sample(make, N, replace=TRUE)
-    
     
     bad_family <- ifelse((Physical_abuse == 'Y'), 2,0) 
     
-    headaches = floor(0.5 * age + 1.14 * Caffeine_alcohol_index - 0.7 * Physical_activity_index + bad_family)
+    headaches = floor(0.5 * age + 1.14 * Caffeine_alcohol_index 
+                      - 0.7 * Physical_activity_index + bad_family)
     
     
     headaches[which(headaches <= 0)] = 0
 
-    data.frame(age, alcohol, caffeine, smokes, chocolates,video_games, television, games_played, leisure_time, Caffeine_alcohol_index, Physical_activity_index,Physical_abuse, car, headaches)
+    data.frame(age, alcohol, caffeine, smokes, chocolates,video_games, 
+               television, games_played, leisure_time, Caffeine_alcohol_index, 
+               Physical_activity_index,Physical_abuse, bad_family, car, 
+               headaches)
 
 }
 
 df <- generate_dataset(1000)
 
 with(df, plot(age, headaches))
-plot(headaches ~ age, data = df)
+
 ```
 
 The manipulate function is used to calculate appropriate intercepts for the number of headaches prediction equation
 
-```{r}
-
+```
 library(manipulate)
-manipulate({ if(df$Physical_abuse == 'Y' && df$Divorced_parents == 'Y'){
-  df <- transform(df, headaches = floor(a * age + b* Caffeine_alcohol_index - c * Physical_activity_index + 2))} 
-  else {df <- transform(df, headaches = floor(a * age +b* Caffeine_alcohol_index - c * Physical_activity_index))}
+manipulate({ 
+  df <- transform(df, headaches = floor(a * age + b * Caffeine_alcohol_index 
+  - c * Physical_activity_index + bad_family))
   
   plot(df$age , df$headaches)
-}, a=slider(0, 10, step=0.1, initial = 0),b=slider(0, 10, step=0.01, initial = 0), c=slider(0, 10, step=0.1, initial = 0))
-
+}, a=slider(0, 10, step=0.1, initial = 0),b=slider(0, 10, step=0.01, initial = 0), 
+c=slider(0, 10, step=0.1, initial = 0))
 ```
 
-#### Analysis
+
+## Analysis
 
 For the analysis part a data frame containing the following factors is provided:
 
-* Age : Recorded in number of years
-* Caffeine_alcohol_index : This is the amount of caffeine and alcohol ingested by the child in all forms per week. It is calculated on the basis of the alcohol ingested in all forms per week, amount of caffeine intake per day, number of smokes per week and number of chocolates per week
-* Physical_activity_index :  This is a factor that evaluates the amount of physical activity performed by the child based on number of video games owned, number of televicions present in the child's bedroom, number of games played and the amount of leisure time available per week. 
-* Physical_abuse: If the child has suffered from any sort of physical abuse
-* Divorced_parents : If the parents of the child are divorced
-* alcohol: Amount of alcohol ingested in any form per week
-* caffeine: Amount of caffeine intake per day
-* smokes: Number of cigarettes smoked in a week
-* chocolates: Number of chocolates consumed per week 
-* video_games: Number of video games owned
-* television: Number of televisions in the child's bedroom
-* games_played: Number of physical games played per week
-* leisure_time: Amount of free time per week 
-* car: The make of the car owned by the family
+1. age : Recorded in number of years
+2. alcohol: Amount of alcohol ingested in any form per week (in mg)
+3. caffeine: Amount of caffeine intake per day (in mg)
+4. smokes: Number of cigarettes smoked in a week
+5. chocolates: Number of chocolates consumed per week 
+6. video_games: Number of video games owned
+7. television: Number of televisions in the child's bedroom
+8. games_played: Number of physical games played per week
+9. leisure_time: Amount of free time per week (in hours)
+10. Caffeine_alcohol_index : This is the amount of caffeine and alcohol ingested by the child in all forms per week. It is calculated on the basis of the alcohol ingested in all forms per week, amount of caffeine intake per day, number of smokes per week and number of chocolates per week
+11. Physical_activity_index :  This is a factor that evaluates the amount of physical activity performed by the child based on number of video games owned, number of televicions present in the child's bedroom, number of games played and the amount of leisure time available per week. 
+12. Physical_abuse: If the child has suffered from any sort of physical abuse ("Yes" or "No")
+13. bad_family : It is an intercept value determined by the the fact the family has divorced parents or not
+14. car: The make of the car owned by the family
+15. headaches: No. of headaches a child gets per week
 
-We try to analyse the data by using the different variables provided in the data frame. 
+We try to analyse the data by using lm. 
 
 ```{r}
 
-fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index + Physical_abuse -1, data=df)
+fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index + 
+            bad_family -1, data=df)
 
 summary(fit)
+```
 
+The values obtained are similar to original values.
 
-fit2 <- lm(headaches ~ age + Physical_abuse + alcohol+ caffeine + smokes + chocolates + video_games + television + games_played+ leisure_time + car -1, data=df)
+```{r}
+fit2 <- lm(headaches ~ age + Physical_abuse + alcohol+ caffeine + smokes + chocolates 
+           + video_games + television + games_played+ leisure_time + car 
+           + bad_family -1, data=df)
 
 summary(fit2)
+```
+
+```{r}
 
 with(df, boxplot(headaches ~ Physical_abuse ))
 plot (age~headaches, border = Physical_abuse, data = df)
+
 library(ggplot2)
 ggplot(df, aes(x = Caffeine_alcohol_index, col = Physical_abuse )) + geom_density()
+
 ggplot(df, aes(x = Physical_activity_index, col = Physical_abuse )) + geom_density()
+
 ggplot(df, aes(x = age, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = alcohol, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = caffeine, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = video_games, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = television, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = games_played, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = leisure_time, col = Physical_abuse  )) + geom_density()
-plot(~ car, data = df)
-plot (~ Physical_abuse, data = df)
+
+ggplot(df, aes(x = bad_family, col = Physical_abuse  )) + geom_density()
+
 ggplot(df, aes(x = headaches, col = Physical_abuse  )) + geom_density()
+
 plot(headaches ~ Physical_abuse, data =df)
+
 plot(headaches ~ car, data =df, las =2)
+
 plot (headaches ~ age , data =df)
 abline (lm(headaches ~ age , data =df), col ='red')
+
 plot (headaches ~ Physical_activity_index , data =df)
 abline (lm(headaches ~ Physical_activity_index , data =df), col ='red')
+
 plot (headaches ~ Caffeine_alcohol_index , data =df)
 abline (lm(headaches ~ Caffeine_alcohol_index , data =df), col ='red')
-library(lattice)
-scatter(~age+alcohol+ caffeine + smokes + chocolates + video_games + television + games_played+ leisure_time + Caffeine_alcohol_index + Physical_activity_index, data=df, main="Headaches")
+
+plot (headaches ~ bad_family , data =df)
+abline (lm(headaches ~ bad_family , data =df), col ='red')
+
+library(corrgram)
+corrgram(df, order=FALSE, lower.panel=panel.shade,
+  upper.panel=panel.pie, text.panel=panel.txt,
+  main="Variables in the dataframe")
+```
+
+Age effects can be analysed through the following graphs:
+
+```{r age_effects}
+
+df$age_quartile <- with(df, cut(age, breaks=quantile(age, 0:4/4), labels=1:4))
+plot(headaches ~ age_quartile, data=df, outline=F, notch=T)
 ```
 
 Saving data in a csv
@@ -158,10 +207,18 @@ Saving data in a csv
 ```{r}
 dfnew <- df
 
-colnames(dfnew) <- c("Age (in years)", "Alcohol intake per week (in mg)", "Caffeine intake per day (in mg)", "Smokes per week", "Chocolates per week","Video games owned", " No. tv sets in bedroom", " No. of physical games played", "Leisure time per week",  "Caffeine_alcohol_index", "Physical_activity_index", "Physical abuse", "Divorced parents", "Car make","No. of headaches per week")
+colnames(dfnew) <- c("Age (in years)", "Alcohol intake per week (in mg)", 
+                     "Caffeine intake per day (in mg)", "Smokes per week", 
+                     "Chocolates per week","Video games owned", " No. tv sets in bedroom", 
+                     " No. of physical games played", "Leisure time per week (in hours)",
+                     "Caffeine_alcohol_index", "Physical_activity_index", 
+                     "Physical abuse", "bad_family","Car make",
+                     "No. of headaches per week" )
 
 write.csv(dfnew,file="/Users/chamanpreetkaur/Desktop/data")
 ```
-Source website:
 
-http://pediatrics.aappublications.org/content/133/3/386.full.pdf
+Story inspiration:
+
+* http://www.ncbi.nlm.nih.gov/pubmed/24333367
+* http://pediatrics.aappublications.org/content/133/3/386.full.pdf
