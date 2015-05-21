@@ -1,0 +1,125 @@
+Simple Linear Regression
+========================================================
+author: Chaman Preet Kaur
+date: May 19th, 2015
+
+Simple Linear Regression
+========================================================
+
+A simple linear regression model that describes the relationship between 
+two variables x and y can be expressed by the following equation. 
+The numbers α and β are called parameters, and ϵ is the error term.
+
+y = α + βx+ ϵ
+
+Defining Models in R
+========================================================
+To complete a linear regression using R it is first necessary to understand the syntax for defining models. Let’s assume that the dependent variable being modeled is Y and that A, B and C are independent variables that might affect Y. The general format for a linear1 model is: 
+
+
+response ~ op1 term1 op2 term 2 op3 term3...
+
+Defining Models in R
+========================================================
+Some useful examples
+
+* Y~A, Y=βo +β1A, Straight-line with an implicit y- intercept
+* Y ~ -1 + A, Y = β1A, Straight-line with no y-intercept; that is, a fit forced through (0,0)
+* Y ~ A + I(A^2), Y = βo+ β1A + β2A2, Polynomial model; note that the identity function I( ) allows terms in the model to include normal mathematical symbols.
+* Y~A+B, Y = βo+ β1A + β2B, A first-order model in A and B without interaction terms.
+* Y ~ A:B, Y=βo +β1AB, A model containing only first-order interactions between A and B.
+
+Defining Models in R
+========================================================
+
+* Y ~ A * B, Y = βo+ β1A + β2B + β3AB, A full first-order model with a term; an equivalent code is Y ~ A + B + A:B.
+* Y ~ (A + B + C)^2, Y = βo+ β1A + β2B + β3C + β4AB + β5AC + β6AC, ￼A model including all first-order effects and interactions up to the nth order, where n is given by ( )^n. An equivalent code in this case is Y ~ A * B * C – A:B:C.
+
+Creating A Linear Model
+========================================================
+
+The lm() function
+
+In R, the lm(), or "linear model," function can be used to create a simple 
+regression model. The lm() function accepts a number of arguments 
+("Fitting Linear Models," n.d.). The following list explains the two most commonly 
+used parameters.
+
+* formula: describes the model Note that the formula argument follows a specific format. For simple linear regression, this is "Yvariable ~ Xvariable" where Yvariableis the dependent, or predicted, variable and Xvariable is the independent, or predictor, variable.
+* data: the variable that contains the dataset
+
+Creating A Linear Model
+========================================================
+```{r}
+#create a linear model using lm(FORMULA, DATAVAR) We use the built in data set of cars
+linearModelVar <- lm( speed ~ dist, cars)
+#display linear model
+linearModelVar
+```
+
+Summarizing The Model
+========================================================
+
+The summary(OBJECT) function is a useful tool. It is capable of generating most of the statistical information that one would need to derive from a linear model.
+
+Summarizing The Model
+========================================================
+
+```{r}
+summary(linearModelVar)
+```
+
+Summarizing The Model
+========================================================
+
+* The section of output labeled ‘Residuals’ gives the difference between the experimental and predicted signals. Estimates for the model’s coefficients are provided along with the their 
+standard deviations (‘Std Error’), and a t-value and probability for a null hypothesis that the coefficients have values of zero.
+
+* At the bottom of the table we find the standard deviation about the regression (sr or residual standard error), the correlation coefficient and an F-test result on the null hypothesis that the MSreg/MSres is 1
+
+Other useful commands
+========================================================
+
+```{r}
+coef(linearModelVar)  # gives the model’s coefficients
+
+resid(linearModelVar)   # gives the residual errors in Y
+```
+Other useful commands
+========================================================
+```{r}
+fitted(linearModelVar) # gives the predicted values for Y
+```
+Other useful commands
+========================================================
+```{r}
+layout(matrix(1:4,2,2)) 
+plot(linearModelVar)
+```
+Other useful commands
+========================================================
+* The plot in the upper left shows the residual errors plotted versus their fitted values. The residuals should be randomly distributed around the horizontal line representing a residual error of zero; that is, there should not be a distinct trend in the distribution of points. 
+* The plot in the lower left is a standard Q-Q plot, which should suggest that the residual errors are normally distributed. 
+* The scale-location plot in the upper right shows the square root of the standardized residuals (sort of a square root of relative error) as a function of the fitted values 
+* Finally, the plot in the lower right shows each points leverage, which is a measure of its importance in determining the regression result. 
+
+Using the Results of a Regression to Make Predictions
+========================================================
+
+We can use the predict( ) command to do this; the syntax is:
+
+* predict(model, data.frame(pred = new pred), level = 0.95, interval = “confidence”)
+
+where pred is the object containing the original independent variables and new pred is the object containing the new values for which predictions are desired, and level is the desired confidence level.
+
+Adding Regression Lines to Plots
+========================================================
+```{r}
+plot(cars$speed, cars$dist)
+abline(cars$speed, cars$dist)
+```
+
+(credits: http://www.montefiore.ulg.ac.be/~kvansteen/GBIO0009-1/ac20092010/Class8/Using%20R%20for%20linear%20regression.pdf)
+
+
+
