@@ -4,7 +4,6 @@ output:
   pdf_document:
     fig_height: 3
     fig_width: 4
-    keep_tex: yes
 ---
 # Headache in School Children: Prevalence and Risk Factors
 
@@ -32,7 +31,7 @@ Recurrent headache is a common problem in school children. This data set is link
 
 * Number of chocolates eaten per week (caf)
 
-* Divorced Parents or not 
+* Physical abuse 
 
 An analysis of the data needs to be made to determine the number of headaches and involved risk factors.
 
@@ -40,7 +39,7 @@ An analysis of the data needs to be made to determine the number of headaches an
 
 This is a function to generate a simulated data set.
 
-The `runif` function is used to get inputs for age as we need to have a mix of children from different ages.`rnorm` function is used to generate values where variables are continuous in nature for example alcohol intake can be floating point number. `rbinom` function is used to generate data for variables where a integer value is required and a definate probability for lamba value. The Caffeine_alcohol_index and Physical_abuse_index are calculated using various variables listed in the data frame. The car make is added as a distraction. Finally manupulate function is sued to determine coefficients for variables involved 
+The `runif` function is used to get inputs for age as we need to have a mix of children from different ages. `rnorm` function is used to generate values where variables are continuous in nature for example alcohol intake can be floating point number.`rbinom` function is used to generate data for variables where a integer value is required and a definate probability for lamba value. The Caffeine_alcohol_index and Physical_abuse_index are calculated using various variables listed in the data frame. The car make is added as a distraction. Finally manupulate function is sued to determine coefficients for variables involved 
 
 ```{r}
 
@@ -128,8 +127,8 @@ We try to analyse the data by using lm.
 
 ```{r}
 
-fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index + 
-            bad_family -1, data=df)
+fit <- lm(headaches ~ age + Caffeine_alcohol_index + Physical_activity_index 
+          + Physical_abuse -1, data=df)
 
 summary(fit)
 ```
@@ -138,8 +137,7 @@ The values obtained are similar to original values.
 
 ```{r}
 fit2 <- lm(headaches ~ age + Physical_abuse + alcohol+ caffeine + smokes + chocolates 
-           + video_games + television + games_played+ leisure_time + car 
-           + bad_family -1, data=df)
+           + video_games + television + games_played+ leisure_time + car -1, data=df)
 
 summary(fit2)
 ```
@@ -191,7 +189,7 @@ abline (lm(headaches ~ bad_family , data =df), col ='red')
 library(corrgram)
 corrgram(df, order=FALSE, lower.panel=panel.shade,
   upper.panel=panel.pie, text.panel=panel.txt,
-  main="Variables in the dataframe")
+  main="Correlation matrix")
 ```
 
 Age effects can be analysed through the following graphs:
